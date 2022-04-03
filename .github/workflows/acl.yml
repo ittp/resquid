@@ -8,6 +8,14 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+         description: 'name'
+        # Default value if no value is explicitly provided
+         default: 'test'
+        # Input has to be provided for the workflow to run
+         required: true
+   
       type:
         # Friendly description to be shown in the UI instead of 'name'
          description: 'type'
@@ -40,7 +48,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
+    - name: Install
+      run: sudo apt update && sudo apt install squid curl openssh-server openssh-client -y
     - name: Send greeting
-      run: echo "acl test ${{ github.event.inputs.type }} ${{ github.event.inputs.value }}" >> /tmp/acl-test.conf
+      run: echo "acl test ${{ github.event.inputs.type }} ${{ github.event.inputs.value }}" >> /etc/squid/conf.d/${{ github.event.inputs.name }}.conf
     - name: Show ACL
-      run: cal /tmp/acl-test.conf
+      run: cat /etc/squid/conf.d/${{ github.event.inputs.name }}.conf
