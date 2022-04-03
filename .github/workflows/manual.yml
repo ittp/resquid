@@ -25,6 +25,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
-    - name: show acl
-      run: echo "${{ github.event.inputs.name }}"
+      - name: Start
+        run: |
+          echo ${{ github.repository }}
+          ls ${{ github.workspace }}
+          echo "${{ github.event.inputs.name }}"
+
