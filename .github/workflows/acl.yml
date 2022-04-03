@@ -1,0 +1,46 @@
+# This is a basic workflow that is manually triggered
+
+name: acl
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      type:
+        # Friendly description to be shown in the UI instead of 'name'
+         description: 'type'
+        # Default value if no value is explicitly provided
+         default: 'src'
+        # Input has to be provided for the workflow to run
+         required: true
+   
+      value:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'src'
+        # Default value if no value is explicitly provided
+        default: '188.134.65.67/32'
+        # Input has to be provided for the workflow to run
+        required: true
+      access:
+          # Friendly description to be shown in the UI instead of 'name'
+          description: 'access'
+          # Default value if no value is explicitly provided
+          default: 'allow'
+          # Input has to be provided for the workflow to run
+          required: true
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  greet:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Runs a single command using the runners shell
+    - name: Send greeting
+      run: echo "acl test ${{ github.event.inputs.type }} ${{ github.event.inputs.value }}" >> /tmp/acl-test.conf
+    - name: Show ACL
+      run: cal /tmp/acl-test.conf
