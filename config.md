@@ -126,7 +126,7 @@ Default:
 Default:
  none
 
-  TAG: error_map
+  # TAG: error_map
 	This option is not yet supported by Squid-3.
 Default:
  none
