@@ -1,0 +1,5 @@
+allow: 
+  - localnet
+  - localhost
+deny: 
+  - all
